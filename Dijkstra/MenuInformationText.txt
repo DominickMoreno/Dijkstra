@@ -1,0 +1,4 @@
+1. Load Map
+2. Select Map (by name or number)
+3. View Loaded Maps
+4. Exit Program

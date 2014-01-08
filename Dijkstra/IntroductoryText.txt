@@ -1,0 +1,14 @@
+Welcome to the Dijkstra Shortest Path Program.
+
+	Author: Dominick Moreno
+	Project: Dijkstra
+	E-mail: Dominickmoreno92@gmail.com
+	linkedin: www.linkedin.com/pub/dominick-moreno/65/2a6/841/
+
+This program takes a given map, and finds the shortest path
+between two points on that map, given one exists using
+Dijkstra's algorithm.
+
+Maps are text files with a strictly defined format. Because there
+is currently no GUI for this program, there does not exist an
+interactive way to create a map.
