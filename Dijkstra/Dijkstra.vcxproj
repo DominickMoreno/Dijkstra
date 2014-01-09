@@ -76,10 +76,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Path.cpp" />
+    <ClCompile Include="PathLinkedList.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="TextUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="Path.h" />
+    <ClInclude Include="PathLinkedList.h" />
     <ClInclude Include="TextUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
