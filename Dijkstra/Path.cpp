@@ -15,6 +15,8 @@ Path::Path(Node nodeFrom, Node nodeTo, float paramWeight)
 	nodeA = nodeFrom;
 	nodeB = nodeTo;
 	weight = paramWeight;
+	lastPath = NULL;
+	nextPath = NULL;
 }
 
 //Destructor, maybe not necessary?
@@ -41,11 +43,17 @@ float Path::getWeight()
 	return weight;
 }
 
-//Sets the previous and next path, for the linked list
-void Path::setLastNextPath(Path last, Path next)
+
+//Setter for last path
+void Path::setLastPath(Path &previousPath)
 {
-	lastPath = &last;
-	nextPath = &next;
+	lastPath = &previousPath;
+}
+
+//Setter for next path
+void Path::setNextPath(Path &followingPath)
+{
+	nextPath = &followingPath;
 }
 
 //Getter for lastPath

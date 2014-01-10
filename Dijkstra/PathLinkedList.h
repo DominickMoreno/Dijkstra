@@ -15,12 +15,12 @@ private:
 	Path *headPointer;
 	Path *tailPointer;
 	int numOfPaths;
-	void append(Path);
+	void append(Path&);
 public:
 	PathLinkedList();
 	int getNumPaths();
 	Path getPath(int);
-	PathLinkedList operator+(const Path&);
+	PathLinkedList operator+(Path&);
 };
 
 #endif PATHLINKEDLIST_H
