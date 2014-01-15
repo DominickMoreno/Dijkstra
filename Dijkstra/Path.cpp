@@ -1,16 +1,14 @@
 /* Path class implementation file */
 
-#include "Path.h"
 #include <iostream>
-#include <string>
-
+#include "Path.h"
 //function definitions
 
 //Constructor
 Path::Path(Node nodeFrom, Node nodeTo, float paramWeight)
 {
 	/* First parameter node becomes nodeA, the second
-	   nodeB. Also allocates this path's weight/distance
+	nodeB. Also allocates this path's weight/distance
 	*/
 	nodeA = nodeFrom;
 	nodeB = nodeTo;

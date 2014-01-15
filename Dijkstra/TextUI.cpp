@@ -1,13 +1,14 @@
 /* Implementation file for TextUI.h*/
 
-#include "TextUI.h"
-#include <iostream>
-#include <fstream>
-#include <string>
-
 #define LOWOPTION 1
 #define HIGHOPTION 4
 
+#include <iostream>
+#include <string>
+#include <fstream>
+#include "TextUI.h"
+
+using namespace std;
 //Function definitions
 
 void TextInterface::displayTextMenu()

@@ -1,22 +1,19 @@
 /* Path class header file
 
-   Simple class that represents a connection
-   between two nodes. Has 3 fields - the two
-   nodes that are connected by that path,
-   and the weight/distance of that path
+Simple class that represents a connection
+between two nodes. Has 3 fields - the two
+nodes that are connected by that path,
+and the weight/distance of that path
 */
 
 #ifndef PATH_H
 #define PATH_H
 
 #include "Node.h"
-#include <iostream>
-#include <string>
-using namespace std;
 
 class Path
 {
-friend class PathLinkedList;
+	friend class PathLinkedList;
 private:
 	Node nodeA; //First node connected by path
 	Node nodeB; //Second node connected by path

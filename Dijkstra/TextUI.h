@@ -13,8 +13,10 @@
 
 #ifndef TEXTUI_H
 #define TEXTUI_H
+ 
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 class TextInterface
