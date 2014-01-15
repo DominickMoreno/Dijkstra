@@ -25,13 +25,24 @@ and it looks cool
 
 #include "Edge.h"
 
+//Cell in the linked list
+struct EdgeCell
+{
+	Edge *listEdge; //Data in the linked list cell
+	EdgeCell *nextCell; //Next pointer in the list
+	EdgeCell *lastCell; //Last pointer in the list
+};
+
 class EdgeLinkedList
 {
 private:
-	Edge *headPointer; //Linked list starting point
-	Edge *tailPointer; //Linked list ending point
+
+
+	EdgeCell headCell; //Linked list starting point
+	EdgeCell tailCell; //Linked list ending point 
 	int numOfEdges; //Number of elements (Edges) in list
 	void append(Edge&); //Append method to add Edges
+	static EdgeCell convertEdgeToEdgeCell(Edge&); //Converts an Edge to an EdgeCell struct
 public:
 	EdgeLinkedList(); //Constructor. Note only a default one exists
 	int getNumEdges(); //Returns the number of Edges in the list

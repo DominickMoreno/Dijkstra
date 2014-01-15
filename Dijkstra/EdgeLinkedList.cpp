@@ -11,9 +11,22 @@ using namespace std;
 EdgeLinkedList::EdgeLinkedList()
 {
 	//Set all pointers to null, number of edges to 0
-	headPointer = NULL;
-	tailPointer = NULL;
+	headCell.lastCell = NULL;
+	headCell.nextCell = NULL;
+	tailCell.lastCell = NULL;
+	tailCell.lastCell = NULL;
 	numOfEdges = 0;
+}
+
+EdgeCell EdgeLinkedList::convertEdgeToEdgeCell(Edge &edgeToConvert)
+{
+	EdgeCell newCell;
+
+	newCell.nextCell = NULL;
+	newCell.lastCell = NULL;
+	newCell.listEdge = &edgeToConvert;
+
+	return newCell;
 }
 
 //Getter for numEdges
@@ -25,13 +38,14 @@ int EdgeLinkedList::getNumEdges()
 //Returns the Edge at the given index, 0-based
 Edge EdgeLinkedList::getEdge(int index)
 {
+	//TODO: Error in here!
 	int i; //iteration var
-	Edge *edgeIter = headPointer; //iterating pointer
+	EdgeCell *edgeCellIter = &headCell; //iterating pointer
 
 	//Iterate through loop enough times to reach the desired index
 	for (i = 0; i < index; i++)
 	{
-		if (edgeIter == NULL)
+		if (edgeCellIter == NULL)
 		{
 			/* If the loop reaches the end of the list without
 			reaching the desired index (ie the index does not
@@ -40,11 +54,11 @@ Edge EdgeLinkedList::getEdge(int index)
 			break;
 		}
 		//Traverse the list
-		edgeIter = edgeIter->getNextEdge();
+		edgeCellIter = edgeCellIter->nextCell;
 	}
 
 	//Return the edge
-	return *edgeIter;
+	return *edgeCellIter->listEdge;
 }
 
 void EdgeLinkedList::append(Edge &edgeToBeAdded)
@@ -54,28 +68,36 @@ void EdgeLinkedList::append(Edge &edgeToBeAdded)
 	{
 		//Do nothing, as the it's just a null pointer
 	}
-	else if (headPointer == NULL)
+	else if (numOfEdges == 0)
 	{
 		//If there are not any existing Edges in the list
-		headPointer = &edgeToBeAdded;
-		tailPointer = &edgeToBeAdded;
+		
+		//Convert edgeToBeAdded into an EdgeCell
+		headCell = convertEdgeToEdgeCell(edgeToBeAdded);
 
-		numOfEdges++; //iterate
+		//Fix the next and last pointers in the new EdgeCell
+		headCell.lastCell = &headCell;
+		headCell.nextCell = NULL;
+
+		tailCell = headCell;
+
+		//iterate number of edges
+		numOfEdges++;
 	}
 	else
 	{
 		//There are existing edges in the list
 
-		//Make the current tail pointer point to the appended Edge
-		tailPointer->setNextEdge(edgeToBeAdded);
+		/* Convert the appending edge to an edge cell and
+		   make the current tail cell point to the appending edge
+		*/
+		tailCell.nextCell = &convertEdgeToEdgeCell(edgeToBeAdded);
 
-		//Make the lastEdge of the appended Edge point to the current tail pointer
-		edgeToBeAdded.setLastEdge(*tailPointer);
+		//Make the appending edge back pointer point towards the current tail cell
+		tailCell.nextCell->lastCell = &tailCell;
 
-		//Make the appended Edge the new tail pointer
-		tailPointer = &edgeToBeAdded;
-
-		//nextEdge of appended Edge is already NULL, don't need to set
+		//Make the tail pointer point towards the appending edge
+		tailCell = *tailCell.nextCell;
 
 		numOfEdges++; //iterate
 	}
