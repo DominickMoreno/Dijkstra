@@ -4,15 +4,9 @@
 
 //function definitions
 //General use constructor
-Node::Node(int nodeNumParam)
+Node::Node(int nodeNumParam, PathLinkedList paramPaths)
 {
 	nodeNumber = nodeNumParam;
-	//connectingPaths = PathLinkedList();
-}
-
-Node::Node()
-{
-	nodeNumber = 0;
 	//connectingPaths = PathLinkedList();
 }
 

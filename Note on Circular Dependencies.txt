@@ -1,0 +1,29 @@
+The classes Node, Path, and PathLinkedList form a circular dependancy.
+Specifically, this is done in the form (assuming "A->B" denotes "A
+includes B"):
+
+	Node->PathLinkedList->Path->Node
+
+This is resolved using forward declaration. I recognize that this is
+generally considered bad practice, but this is done for a few reasons:
+
+	1. The easiest way to resolve this is to just vectors in STL,
+		but the point of this project is to do grunt work
+		with pointers, so I want to make all of my own
+		vectors/linked lists. I don't want to use STL at all
+		because of this.
+	2. After discussing the issue at length with a friend, his
+		suggestion to remedying this problem was to use
+		a map. This map would use a pointer to a Node as a
+		key, and the value would be a linked list of structs
+		containing the other nodes that particular Node
+		connects to and the appropriate path weight. The
+		problem with this solution, again, is the easiest
+		way to do this would be using the Map list in STL.
+		However, I could theoretically write my own Map
+		function. I'm hesitant about doing that because I've
+		never covered it in my studies, and it's something
+		I'll be doing in comp sci class next semester
+		(albeit in Java). 
+
+Because the issue has been resolved, I'm content to move on. 

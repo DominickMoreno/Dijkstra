@@ -9,17 +9,18 @@ implemented with a linked list of Path objects
 #ifndef NODE_H
 #define NODE_H
 
-#include "PathLinkedList.h"
+class PathLinkedList;
+class Path;
 
+#include "PathLinkedList.h"
 class Node
 {
 private:
 	int nodeNumber; //Identifies this node (in a map) w/ a num. Maybe not needed
 	int numNodesConnected; //Number of nodes this node is connected to
-	//PathLinkedList connectingPaths; //Linked List of all the Paths this node is connected to
+	PathLinkedList connectingPaths; //Linked List of all the Paths this node is connected to
 public:
-	Node(int);
-	Node();
+	Node(int, PathLinkedList); //Constructor
 	int getNodeNumber(); //Getter for nodeNumber
 	int getNumNodesConnected(); //Getter for numNodesConnected
 };

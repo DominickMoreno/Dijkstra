@@ -10,8 +10,8 @@ Path::Path(Node nodeFrom, Node nodeTo, float paramWeight)
 	/* First parameter node becomes nodeA, the second
 	nodeB. Also allocates this path's weight/distance
 	*/
-	nodeA = nodeFrom;
-	nodeB = nodeTo;
+	nodeA = &nodeFrom;
+	nodeB = &nodeTo;
 	weight = paramWeight;
 	lastPath = NULL;
 	nextPath = NULL;
@@ -26,13 +26,13 @@ Path::~Path()
 //Getter for nodeA
 Node Path::getA()
 {
-	return nodeA;
+	return *nodeA;
 }
 
 //Getter for nodeB
 Node Path::getB()
 {
-	return nodeB;
+	return *nodeB;
 }
 
 //Getter for weight
