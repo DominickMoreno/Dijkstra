@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include "Node.h"
+#include "Edge.h"
 #include "TextUI.h"
 
 using namespace std;
@@ -21,49 +22,49 @@ int main(){
 	Node nodeB = Node(1);
 	Node nodeC = Node(2);
 
-	Path path1 = Path(nodeA, nodeB, 1);
-	Path path2 = Path(nodeB, nodeC, 2);
-	Path path3 = Path(nodeC, nodeA, 3);
+	Edge edge1 = Edge(nodeA, nodeB, 1);
+	Edge edge2 = Edge(nodeB, nodeC, 2);
+	Edge edge3 = Edge(nodeC, nodeA, 3);
 
-	nodeA.addPath(path1);
-	nodeA.addPath(path2);
-	nodeA.addPath(path3);
-	nodeB.addPath(path1);
-	nodeB.addPath(path2);
-	nodeB.addPath(path3);
-	nodeC.addPath(path1);
-	nodeC.addPath(path2);
-	nodeC.addPath(path3);
+	nodeA.addEdge(edge1);
+	nodeA.addEdge(edge2);
+	nodeA.addEdge(edge3);
+	nodeB.addEdge(edge1);
+	nodeB.addEdge(edge2);
+	nodeB.addEdge(edge3);
+	nodeC.addEdge(edge1);
+	nodeC.addEdge(edge2);
+	nodeC.addEdge(edge3);
 	
-	cout << "NodeA (Node #: " << nodeA.getNodeNumber() << ") connecting paths:\n";
-	for (i = 0; i < nodeA.getConnectingPaths().getNumPaths(); i++)
+	cout << "NodeA (Node #: " << nodeA.getNodeNumber() << ") connecting edges:\n";
+	for (i = 0; i < nodeA.getConnectingEdges().getNumEdges(); i++)
 	{
-		cout << "\tPath#: " << i << endl;
-		cout << "\tConnecting Path Node A: " << nodeA.getConnectingPaths().getPath(i).getA().getNodeNumber() << endl;
-		cout << "\tConnecting Path Node B: " << nodeA.getConnectingPaths().getPath(i).getB().getNodeNumber() << endl;
-		cout << "\tConnecting Path weight: " << nodeA.getConnectingPaths().getPath(i).getWeight() << endl;
+		cout << "\tEdge#: " << i << endl;
+		cout << "\tConnecting Edge Node A: " << nodeA.getConnectingEdges().getEdge(i).getA().getNodeNumber() << endl;
+		cout << "\tConnecting Edge Node B: " << nodeA.getConnectingEdges().getEdge(i).getB().getNodeNumber() << endl;
+		cout << "\tConnecting Edge weight: " << nodeA.getConnectingEdges().getEdge(i).getWeight() << endl;
 		cout << endl;
 	}
 
 	cout << endl;
-	cout << "NodeB (Node #: " << nodeB.getNodeNumber() << ") connecting paths:\n";
-	for (i = 0; i < nodeB.getConnectingPaths().getNumPaths(); i++)
+	cout << "NodeB (Node #: " << nodeB.getNodeNumber() << ") connecting edges:\n";
+	for (i = 0; i < nodeB.getConnectingEdges().getNumEdges(); i++)
 	{
-		cout << "\tPath#: " << i << endl;
-		cout << "\tConnecting Path Node A: " << nodeB.getConnectingPaths().getPath(i).getA().getNodeNumber() << endl;
-		cout << "\tConnecting Path Node B: " << nodeB.getConnectingPaths().getPath(i).getB().getNodeNumber() << endl;
-		cout << "\tConnecting Path weight: " << nodeB.getConnectingPaths().getPath(i).getWeight() << endl;
+		cout << "\tEdge#: " << i << endl;
+		cout << "\tConnecting Edge Node A: " << nodeB.getConnectingEdges().getEdge(i).getA().getNodeNumber() << endl;
+		cout << "\tConnecting Edge Node B: " << nodeB.getConnectingEdges().getEdge(i).getB().getNodeNumber() << endl;
+		cout << "\tConnecting Edge weight: " << nodeB.getConnectingEdges().getEdge(i).getWeight() << endl;
 		cout << endl;
 	}
 
 	cout << endl;
-	cout << "NodeC (Node #: " << nodeC.getNodeNumber() << ") connecting paths:\n";
-	for (i = 0; i < nodeC.getConnectingPaths().getNumPaths(); i++)
+	cout << "NodeC (Node #: " << nodeC.getNodeNumber() << ") connecting edges:\n";
+	for (i = 0; i < nodeC.getConnectingEdges().getNumEdges(); i++)
 	{
-		cout << "\tPath#: " << i << endl;
-		cout << "\tConnecting Path Node A: " << nodeC.getConnectingPaths().getPath(i).getA().getNodeNumber() << endl;
-		cout << "\tConnecting Path Node B: " << nodeC.getConnectingPaths().getPath(i).getB().getNodeNumber() << endl;
-		cout << "\tConnecting Path weight: " << nodeC.getConnectingPaths().getPath(i).getWeight() << endl;
+		cout << "\tEdge#: " << i << endl;
+		cout << "\tConnecting Edge Node A: " << nodeC.getConnectingEdges().getEdge(i).getA().getNodeNumber() << endl;
+		cout << "\tConnecting Edge Node B: " << nodeC.getConnectingEdges().getEdge(i).getB().getNodeNumber() << endl;
+		cout << "\tConnecting Edge weight: " << nodeC.getConnectingEdges().getEdge(i).getWeight() << endl;
 		cout << endl;
 	}
 

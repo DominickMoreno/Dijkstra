@@ -42,7 +42,7 @@ private:
 	/* Asks user to select a (loaded) map. They will then
 	   be brought to a new menu where they can decide
 	   what they will do with the map (eg find shortest
-	   path, delete, view nodes)
+	   edge, delete, view nodes)
 
 	   Returns true if succesful
 	   Returns false if unsuccesful

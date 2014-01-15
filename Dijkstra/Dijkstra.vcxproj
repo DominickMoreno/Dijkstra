@@ -77,15 +77,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Node.cpp" />
-    <ClCompile Include="Path.cpp" />
-    <ClCompile Include="PathLinkedList.cpp" />
+    <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="EdgeLinkedList.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="TextUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h" />
-    <ClInclude Include="Path.h" />
-    <ClInclude Include="PathLinkedList.h" />
+    <ClInclude Include="Edge.h" />
+    <ClInclude Include="EdgeLinkedList.h" />
     <ClInclude Include="TextUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
