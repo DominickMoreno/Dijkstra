@@ -5,7 +5,7 @@
 //function definitions
 
 //Constructor
-Path::Path(Node nodeFrom, Node nodeTo, float paramWeight)
+Path::Path(Node &nodeFrom, Node &nodeTo, float paramWeight)
 {
 	/* First parameter node becomes nodeA, the second
 	nodeB. Also allocates this path's weight/distance

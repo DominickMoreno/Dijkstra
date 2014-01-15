@@ -20,7 +20,9 @@ private:
 	int numNodesConnected; //Number of nodes this node is connected to
 	PathLinkedList connectingPaths; //Linked List of all the Paths this node is connected to
 public:
-	Node(int, PathLinkedList); //Constructor
+	Node(int); //Constructor
+	bool addPath(Path&); //Add a Path to the connectingPaths
+	PathLinkedList getConnectingPaths(); //Getter for connectingPaths
 	int getNodeNumber(); //Getter for nodeNumber
 	int getNumNodesConnected(); //Getter for numNodesConnected
 };

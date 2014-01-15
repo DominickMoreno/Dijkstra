@@ -27,7 +27,7 @@ protected: //Used by friend class PathLinkedList
 	void setLastPath(Path&); //Setter for lastPath
 	void setNextPath(Path&); //Setter for nextPath
 public:
-	Path(Node, Node, float); //Constructor, class is immutable
+	Path(Node&, Node&, float); //Constructor, class is immutable
 	~Path(); //Destructor - maybe not necessary?
 	Node getA(); //Getter for nodeA
 	Node getB(); //Getter for nodeB
