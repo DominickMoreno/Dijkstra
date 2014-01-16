@@ -13,17 +13,10 @@ EdgeLinkedList::EdgeLinkedList()
 	//Set all pointers to null, number of edges to 0
 	headCell = NULL;
 	tailCell = NULL;
-	/*
-	headCell->lastCell = NULL;
-	headCell->nextCell = NULL;
-	headCell->listEdge = NULL;
-	tailCell->lastCell = NULL;
-	tailCell->nextCell = NULL;
-	tailCell->listEdge = NULL;
-	*/
 	numOfEdges = 0;
 }
 
+//Used for convenience to make a new EdgeCell pointer from an Edge
 EdgeCell *EdgeLinkedList::convertEdgeToEdgeCell(Edge &edgeToConvert)
 {
 	EdgeCell *newCell = new EdgeCell;

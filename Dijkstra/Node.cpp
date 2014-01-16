@@ -13,6 +13,13 @@ Node::Node(int nodeNumParam)
 	connectingEdges = EdgeLinkedList(); //set the edges that this Node connects to
 }
 
+//Default constructor. Not sure why necessary
+Node::Node()
+{
+	nodeNumber = 0;
+	connectingEdges = EdgeLinkedList();
+}
+
 //Adds an Edge to the connectingEdges in the Node
 bool Node::addEdge(Edge &edgeToBeAdded)
 {

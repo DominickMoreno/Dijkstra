@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeLinkedList.cpp" />
@@ -83,6 +84,7 @@
     <ClCompile Include="TextUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="EdgeLinkedList.h" />

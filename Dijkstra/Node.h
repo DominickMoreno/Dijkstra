@@ -21,6 +21,7 @@ private:
 	EdgeLinkedList connectingEdges; //Linked List of all the Edges this node is connected to
 public:
 	Node(int); //Constructor
+	Node(); //Default constructor - I get yelled at without this
 	bool addEdge(Edge&); //Add a Edge to the connectingEdges
 	EdgeLinkedList getConnectingEdges(); //Getter for connectingEdges
 	int getNodeNumber(); //Getter for nodeNumber
