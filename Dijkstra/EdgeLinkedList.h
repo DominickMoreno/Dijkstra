@@ -38,14 +38,16 @@ class EdgeLinkedList
 private:
 
 
-	EdgeCell headCell; //Linked list starting point
-	EdgeCell tailCell; //Linked list ending point 
+	EdgeCell *headCell; //Linked list starting point
+	EdgeCell *tailCell; //Linked list ending point 
 	int numOfEdges; //Number of elements (Edges) in list
 	void append(Edge&); //Append method to add Edges
-	static EdgeCell convertEdgeToEdgeCell(Edge&); //Converts an Edge to an EdgeCell struct
+	static EdgeCell *convertEdgeToEdgeCell(Edge&); //Converts an Edge to an EdgeCell struct
 public:
 	EdgeLinkedList(); //Constructor. Note only a default one exists
 	int getNumEdges(); //Returns the number of Edges in the list
+	EdgeCell *getHeadCell();
+	EdgeCell *getTailCell();
 	Edge getEdge(int); //Returns the Edge at the given index in the list
 	EdgeLinkedList operator+(Edge&); //Adds a Edge to the list
 };

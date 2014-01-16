@@ -21,10 +21,26 @@ bool Node::addEdge(Edge &edgeToBeAdded)
 	   false
 	   */
 	cout << "\t----Inside addEdge----\n";
+	cout << "\t\tEdge address: " << &edgeToBeAdded << endl;
 	cout << "\t\tnodeNumber: " << nodeNumber << endl;
 	cout << "\t\tedgeToBeAdded nodeA number: " << edgeToBeAdded.getA().getNodeNumber() << endl;
 	cout << "\t\tedgeToBeAdded nodeB number: " << edgeToBeAdded.getB().getNodeNumber() << endl;
-	cout << "\t\tedge weight: " << edgeToBeAdded.getWeight() << endl;
+	cout << "\t\tedge weight: " << edgeToBeAdded.getWeight() << endl << endl;
+	/*cout << "\t\tCurrent List:\n";
+
+	EdgeCell listIter = connectingEdges.getHeadCell();
+	int i = 0;
+	while (listIter.nextCell != NULL)
+	{
+		cout << "\t\t\tIteration number: " << i << endl;
+		cout << "\t\t\t\tnodeA: " << listIter.listEdge->getA().getNodeNumber() << endl;
+		cout << "\t\t\t\tnodeB: " << listIter.listEdge->getB().getNodeNumber() << endl;
+		cout << "\t\t\t\tpath weight: " << listIter.listEdge->getWeight() << endl << endl;
+
+		//iterate
+		listIter = *listIter.nextCell;
+		i++;
+	}*/
 
 	if (edgeToBeAdded.getA().getNodeNumber() == nodeNumber
 		|| edgeToBeAdded.getB().getNodeNumber() == nodeNumber)
