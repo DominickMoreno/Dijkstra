@@ -71,26 +71,6 @@ void EdgeLinkedList::append(Edge &edgeToBeAdded)
 	//Convert edgeToBeAdded into an edgeCell
 	EdgeCell *cellToBeAdded = convertEdgeToEdgeCell(edgeToBeAdded);
 
-	cout << "\t\t\t######Inside Append######\n";
-	cout << "\t\t\t\tEdge address: " << &edgeToBeAdded << endl;
-	cout << "\t\t\t\tnumOfEdges is: " << numOfEdges << endl;
-	cout << "\t\t\t\tNew Edge Cell Address is: " << cellToBeAdded << endl;
-	cout << "\t\t\t\tNew Edge Cell Edge Address: " << cellToBeAdded->listEdge << endl;
-	cout << "\t\t\t\tBefore:\n";
-	cout << "\t\t\t\t\theadCell Address: " << headCell << endl;
-	if (headCell != NULL)
-	{
-		cout << "\t\t\t\t\theadCell.lastCell Address: " << headCell->lastCell << endl;
-		cout << "\t\t\t\t\theadCell.nextCell Address: " << headCell->nextCell << endl;
-		cout << "\t\t\t\t\theadCell.listEdge Address: " << headCell->listEdge << endl << endl;
-	}
-	cout << "\t\t\t\t\ttailCell Address: " << tailCell << endl;
-	if (tailCell != NULL)
-	{
-		cout << "\t\t\t\t\ttailCell.lastCell Address: " << tailCell->lastCell << endl;
-		cout << "\t\t\t\t\ttailCell.nextCell Address: " << tailCell->nextCell << endl;
-		cout << "\t\t\t\t\ttailCell.listEdge Address: " << tailCell->listEdge << endl << endl;
-	}
 	if (&edgeToBeAdded == NULL)
 	{
 		//Do nothing, as it's just a null pointer
@@ -110,47 +90,20 @@ void EdgeLinkedList::append(Edge &edgeToBeAdded)
 	}
 	else
 	{
-		cout << "\t\t\t\t$$$$$$$$Inside Append, with existing$$$$$$$\n";
 		//There are existing edges in the list
 		//Append this new edgeCell to the linked list
 		//Make current tailCell point to new cell
-		tailCell->nextCell = cellToBeAdded; //Assign 1 - GOOD
-
-		cout << "\t\t\t\tAfter Assign 1:\n";
-		cout << "\t\t\t\t\ttailCell Address: " << &tailCell << endl;
-		cout << "\t\t\t\t\ttailCell lastCell Address: " << tailCell->lastCell << endl;
-		cout << "\t\t\t\t\tnextCell lastCell Address: " << tailCell->nextCell << endl << endl;
+		tailCell->nextCell = cellToBeAdded; 
 
 		//Make new Cell point back to current tailCell
-		cellToBeAdded->lastCell = tailCell; //Assign 2 - Maybe good - undetermined
+		cellToBeAdded->lastCell = tailCell;
 
-		cout << "\t\t\t\tAfter Assign 2:\n";
-		cout << "\t\t\t\t\ttailCell Address: " << &tailCell << endl;
-		cout << "\t\t\t\t\ttailCell lastCell Address: " << tailCell->lastCell << endl;
-		cout << "\t\t\t\t\tnextCell lastCell Address: " << tailCell->nextCell << endl << endl;
-		
 		//Make tailCell point to new cell
-		tailCell = cellToBeAdded; //Assign 3 - Problem
-
-		cout << "\t\t\t\tAfter Assign 3:\n";
-		cout << "\t\t\t\t\ttailCell Address: " << &tailCell << endl;
-		cout << "\t\t\t\t\ttailCell lastCell Address: " << tailCell->lastCell << endl;
-		cout << "\t\t\t\t\tnextCell lastCell Address: " << tailCell->nextCell << endl << endl;
+		tailCell = cellToBeAdded; 
 
 		//iterate number of edges
 		numOfEdges++;
-		cout << "\t\t\t\t$$$$$$$$Exiting Append, with existing$$$$$$$\n";
 	}
-	cout << "\t\t\t\tAfter:\n";
-	cout << "\t\t\t\t\theadCell Address: " << headCell << endl;
-	cout << "\t\t\t\t\theadCell.lastCell Address: " << headCell->lastCell << endl;
-	cout << "\t\t\t\t\theadCell.nextCell Address: " << headCell->nextCell << endl;
-	cout << "\t\t\t\t\theadCell.listEdge Address: " << headCell->listEdge << endl << endl;
-	cout << "\t\t\t\t\ttailCell Address: " << tailCell << endl;
-	cout << "\t\t\t\t\ttailCell.lastCell Address: " << tailCell->lastCell << endl;
-	cout << "\t\t\t\t\ttailCell.nextCell Address: " << tailCell->nextCell << endl;
-	cout << "\t\t\t\t\ttailCell.listEdge Address: " << tailCell->listEdge << endl << endl;
-	cout << "\t\t\t######Exiting Append######\n";
 }
 
 //Appends a edge to the list using the '+' operator
@@ -159,14 +112,4 @@ EdgeLinkedList EdgeLinkedList::operator+(Edge &rhs)
 	//Simply use the private append method
 	this->append(rhs);
 	return *this;
-}
-
-EdgeCell *EdgeLinkedList::getHeadCell()
-{
-	return headCell;
-}
-
-EdgeCell *EdgeLinkedList::getTailCell()
-{
-	return tailCell;
 }
