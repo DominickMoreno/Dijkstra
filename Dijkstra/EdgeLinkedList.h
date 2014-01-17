@@ -36,8 +36,6 @@ struct EdgeCell
 class EdgeLinkedList
 {
 private:
-
-
 	EdgeCell *headCell; //Linked list starting point
 	EdgeCell *tailCell; //Linked list ending point 
 	int numOfEdges; //Number of elements (Edges) in list

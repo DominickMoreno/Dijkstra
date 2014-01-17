@@ -6,6 +6,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <regex>
 #include <string>
 #include "Node.h"
 
@@ -15,6 +16,7 @@ private:
 	int numOfNodes; //Holds the number of Nodes in the Graph
 	Node *nodeList; //Holds all of the Nodes in the Graph (array)
 	bool parseGraphFile(std::string); //Parses a Graph file to generate a Graph
+	bool parseGraphLine(std::string, int);
 	int findNumOfNodesInFile(std::string); //Determines the number of lines in a Graph File
 public:
 	Graph(std::string); //Constructor to be used with Text interface

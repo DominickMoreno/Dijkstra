@@ -26,6 +26,7 @@ public:
 	EdgeLinkedList getConnectingEdges(); //Getter for connectingEdges
 	int getNodeNumber(); //Getter for nodeNumber
 	int getNumNodesConnected(); //Getter for numNodesConnected
+	Edge *doNodesConnect(Node); //Determines if two Nodes connect, returns ptr to that Edge
 };
 
 #endif

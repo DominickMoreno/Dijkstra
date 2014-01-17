@@ -51,3 +51,32 @@ int Node::getNodeNumber()
 {
 	return nodeNumber;
 }
+
+Edge *Node::doNodesConnect(Node seekerNode)
+{
+	cout << "--Inside doNodesConnect--\n";
+	Edge *edgeIter; //Iterates through the linked list
+
+	/* Just go through the whole list of other Nodes this Node
+	   connects to. If you get a match (ie the seekerNode number
+	   is on either of the ends in any of THIS Node's edges),
+	   return that weight. If no such connection is found, return
+	   -1
+	*/
+	cout << "\tThis Node's number: " << nodeNumber << endl;
+	cout << "\tseekerNode number: " << seekerNode.getNodeNumber() << endl;
+	for (int i = 0; i < connectingEdges.getNumEdges(); i++)
+	{
+		*edgeIter = connectingEdges.getEdge(i);
+
+		if (seekerNode.nodeNumber == edgeIter->getA().getNodeNumber()
+			|| seekerNode.nodeNumber == edgeIter->getB().getNodeNumber())
+		{
+			cout << "--Exiting doNodesConnect, Edge FOUND--\n";
+			return edgeIter; //Connection found, return pointer to that Edge
+		}
+	}
+
+	cout << "--Exiting doNodesConnect, Edge NOT found--\n";
+	return NULL; //Connection not found, return NULL
+}
