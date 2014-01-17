@@ -13,7 +13,7 @@ class Graph
 {
 private:
 	int numOfNodes; //Holds the number of Nodes in the Graph
-	Node nodeList[1]; //Holds all of the Nodes in the Graph
+	Node *nodeList; //Holds all of the Nodes in the Graph (array)
 	bool parseGraphFile(std::string); //Parses a Graph file to generate a Graph
 	int findNumOfNodesInFile(std::string); //Determines the number of lines in a Graph File
 public:

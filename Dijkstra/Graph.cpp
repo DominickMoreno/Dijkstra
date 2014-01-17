@@ -43,7 +43,12 @@ Graph::Graph(string graphFileName)
 	numOfNodes = findNumOfNodesInFile(graphFileName);
 
 	//Instantiate nodeList
-	//nodeList[numOfNodes];
+	nodeList = new Node[numOfNodes];
+
+	for (int i = 0; i < numOfNodes; i++)
+	{
+		nodeList[i] = *(new Node(i));
+	}
 }
 
 //Determines the number of Nodes in t
@@ -83,9 +88,7 @@ int Graph::getNumOfNodes()
 	return numOfNodes;
 }
 
-Node Graph::getNodeAtIndex(int)
+Node Graph::getNodeAtIndex(int index)
 {
-	//stuff
-	Node myDumbNode = Node(0);
-	return myDumbNode;
+	return nodeList[index];
 }

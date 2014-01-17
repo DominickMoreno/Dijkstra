@@ -22,8 +22,23 @@ int main(){
 	Graph graph2 = Graph("ExampleGraphFile2.txt");
 
 	cout << "graph0 has " << graph0.getNumOfNodes() << " Nodes!\n";
-	cout << "graph1 has " << graph1.getNumOfNodes() << " Nodes!\n";
+	cout << "Those nodes are:\n";
+	for (int i = 0; i < graph0.getNumOfNodes(); i++)
+	{
+		cout << "\tNode with number: " << graph0.getNodeAtIndex(i).getNodeNumber() << endl;
+	}
+
+	cout << "\ngraph1 has " << graph1.getNumOfNodes() << " Nodes!\n";
+	for (int i = 0; i < graph1.getNumOfNodes(); i++)
+	{
+		cout << "\tNode with number: " << graph1.getNodeAtIndex(i).getNodeNumber() << endl;
+	}
+
 	cout << "graph2 has " << graph2.getNumOfNodes() << " Nodes!\n";
+	for (int i = 0; i < graph2.getNumOfNodes(); i++)
+	{
+		cout << "\tNode with number: " << graph2.getNodeAtIndex(i).getNodeNumber() << endl;
+	}
 
 	system("pause");
 	return 0;
