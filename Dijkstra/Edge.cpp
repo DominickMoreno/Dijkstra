@@ -10,17 +10,26 @@ Edge::Edge(Node &nodeFrom, Node &nodeTo, float paramWeight)
 	/* First parameter node becomes nodeA, the second
 	nodeB. Also allocates this edge's weight/distance
 	*/
+	std::cout << "Calling Edge constructor\n";
 	nodeA = &nodeFrom;
 	nodeB = &nodeTo;
 	weight = paramWeight;
-	lastEdge = NULL;
-	nextEdge = NULL;
+	std::cout << "Leaving Edge constructor\n";
+}
+
+//Default constructor
+Edge::Edge()
+{
+	//Sets everything to a dummy value
+	nodeA = NULL;
+	nodeB = NULL;
+	weight = -3.14;
 }
 
 //Getter for nodeA
 Node Edge::getA()
 {
-	return *nodeA;
+ 	return *nodeA;
 }
 
 //Getter for nodeB
@@ -33,29 +42,4 @@ Node Edge::getB()
 float Edge::getWeight()
 {
 	return weight;
-}
-
-
-//Setter for last Edge
-void Edge::setLastEdge(Edge &previousEdge)
-{
-	lastEdge = &previousEdge;
-}
-
-//Setter for next Edge
-void Edge::setNextEdge(Edge &followingEdge)
-{
-	nextEdge = &followingEdge;
-}
-
-//Getter for lastEdge
-Edge* Edge::getLastEdge()
-{
-	return lastEdge;
-}
-
-//Getter for nextEdge
-Edge* Edge::getNextEdge()
-{
-	return nextEdge;
 }

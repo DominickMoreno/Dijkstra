@@ -15,6 +15,7 @@ class Edge;
 #include "EdgeLinkedList.h"
 class Node
 {
+	friend class Graph; //temp;
 private:
 	int nodeNumber; //Identifies this node (in a map) w/ a num. Maybe not needed
 	int numNodesConnected; //Number of nodes this node is connected to
@@ -26,7 +27,7 @@ public:
 	EdgeLinkedList getConnectingEdges(); //Getter for connectingEdges
 	int getNodeNumber(); //Getter for nodeNumber
 	int getNumNodesConnected(); //Getter for numNodesConnected
-	Edge *doNodesConnect(Node); //Determines if two Nodes connect, returns ptr to that Edge
+	Edge *doNodesConnect(Node*); //Determines if two Nodes connect, returns ptr to that Edge
 };
 
 #endif

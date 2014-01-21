@@ -16,7 +16,7 @@ Node::Node(int nodeNumParam)
 //Default constructor. Not sure why necessary
 Node::Node()
 {
-	nodeNumber = 0;
+	nodeNumber = -1;
 	connectingEdges = EdgeLinkedList();
 }
 
@@ -27,6 +27,7 @@ bool Node::addEdge(Edge &edgeToBeAdded)
 	   the Node it's being added to. Otherwise returns
 	   false
 	*/
+
 	if (edgeToBeAdded.getA().getNodeNumber() == nodeNumber
 		|| edgeToBeAdded.getB().getNodeNumber() == nodeNumber)
 	{
@@ -52,10 +53,11 @@ int Node::getNodeNumber()
 	return nodeNumber;
 }
 
-Edge *Node::doNodesConnect(Node seekerNode)
+//Edge *Node::doNodesConnect(const Node *seekerNode)
+Edge *Node::doNodesConnect(Node *seekerNode)
 {
 	cout << "--Inside doNodesConnect--\n";
-	Edge *edgeIter; //Iterates through the linked list
+	Edge *edgeIter = new Edge(); //Iterates through the linked list
 
 	/* Just go through the whole list of other Nodes this Node
 	   connects to. If you get a match (ie the seekerNode number
@@ -63,14 +65,30 @@ Edge *Node::doNodesConnect(Node seekerNode)
 	   return that weight. If no such connection is found, return
 	   -1
 	*/
+	cout << "\theadCell's address: " << connectingEdges.headCell << endl;
+	if (connectingEdges.headCell != NULL)
+	{
+		cout << "\tHeadCell's Edge's address: " << connectingEdges.headCell->listEdge << endl;
+		cout << "\tHeadCell's Edge's Node A's address: " << connectingEdges.headCell->listEdge->nodeA << endl;
+		cout << "\tHeadCell's Edge's Node B's address: " << connectingEdges.headCell->listEdge->nodeB << endl;
+	}
+
 	cout << "\tThis Node's number: " << nodeNumber << endl;
-	cout << "\tseekerNode number: " << seekerNode.getNodeNumber() << endl;
+	cout << "\tseekerNode number: " << seekerNode->getNodeNumber() << endl;
 	for (int i = 0; i < connectingEdges.getNumEdges(); i++)
 	{
-		*edgeIter = connectingEdges.getEdge(i);
+		cout << "BEFORE edgeIter assignment in for loop\n";
+		cout << "\tedgeIter has address: " << edgeIter << endl;
+		cout << "\tedgeIter.nodeA Address: " << edgeIter->nodeA << endl;
+		cout << "\tedgeIter.nodeB Address: " << edgeIter->nodeB << endl;
+		edgeIter = connectingEdges.getEdge(i);
+		cout << "AFTER edgeIter assignment in for loop\n";
+		cout << "\tedgeIter contains address: " << edgeIter << endl;
+		cout << "\tedgeIter.nodeA Address: " << edgeIter->nodeA << endl;
+		cout << "\tedgeIter.nodeB Address: " << edgeIter->nodeB << endl;
 
-		if (seekerNode.nodeNumber == edgeIter->getA().getNodeNumber()
-			|| seekerNode.nodeNumber == edgeIter->getB().getNodeNumber())
+		if (seekerNode->nodeNumber == edgeIter->getA().getNodeNumber()
+			|| seekerNode->nodeNumber == edgeIter->getB().getNodeNumber())
 		{
 			cout << "--Exiting doNodesConnect, Edge FOUND--\n";
 			return edgeIter; //Connection found, return pointer to that Edge

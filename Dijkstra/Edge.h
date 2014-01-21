@@ -16,21 +16,19 @@ class Node;
 class Edge
 {
 	friend class EdgeLinkedList;
+	friend class Node; //temp
+	friend class Graph; //temp
 private:
 	Node *nodeA; //First node connected by edge
 	Node *nodeB; //Second node connected by edge
 	float weight; //Edge weight/distance
 
-protected: //Used by friend class EdgeLinkedList
-	Edge *lastEdge; //Previous edge in list
-	Edge *nextEdge; //Next edge in list
-	void setLastEdge(Edge&); //Setter for lastEdge
-	void setNextEdge(Edge&); //Setter for nextEdge
 public:
 	Edge(Node&, Node&, float); //Constructor, class is immutable
+	Edge(); //Default constructor
 	Node getA(); //Getter for nodeA
 	Node getB(); //Getter for nodeB
-	float getWeight(); //Getter for weightin constructor?
+	float getWeight(); //Getter for weight
 	Edge *getLastEdge(); //Getter for lastEdge
 	Edge *getNextEdge(); //Getter for nextEdge
 

@@ -35,6 +35,8 @@ struct EdgeCell
 
 class EdgeLinkedList
 {
+	friend class Node; //temp
+	friend class Graph; // temp
 private:
 	EdgeCell *headCell; //Linked list starting point
 	EdgeCell *tailCell; //Linked list ending point 
@@ -44,8 +46,8 @@ private:
 public:
 	EdgeLinkedList(); //Constructor. Note only a default one exists
 	int getNumEdges(); //Returns the number of Edges in the list
-	Edge getEdge(int); //Returns the Edge at the given index in the list
-	EdgeLinkedList operator+(Edge&); //Adds a Edge to the list
+	Edge *getEdge(int); //Returns the Edge at the given index in the list
+	EdgeLinkedList operator+(Edge&); //Adds an Edge to the list
 };
 
 #endif EDGELINKEDLIST_H

@@ -46,6 +46,21 @@ Graph::Graph(string graphFileName)
 	//Instantiate nodeList
 	nodeList = new Node[numOfNodes];
 
+	//Initialize all of the Nodes that exist in the Graph
+	//Node that nodeList[n] will contain Node number n
+	for (int i = 0; i < numOfNodes; i++)
+	{
+		nodeList[i] = *(new Node(i));
+	}
+
+	cout << "The contents of nodeList are:\n";
+	for (int i = 0; i < numOfNodes; i++)
+	{
+		cout << "nodeList[" << i << "]: " << nodeList[i].getNodeNumber() <<  " at address: " <<
+			&nodeList[i] << endl;
+	}
+	cout << endl;
+
 	//Parse file to instantiate all the Nodes and Paths
 	if (!parseGraphFile(graphFileName)) //If the File is improperly formatted
 	{
@@ -53,15 +68,9 @@ Graph::Graph(string graphFileName)
 		//TODO: Figure this out when you write loadMap
 	}
 
-	//Initialize all of the Nodes that exist in the Graph
-	//Node that nodeList[n] will contain Node number n
-	for (int i = 0; i < numOfNodes; i++)
-	{
-		nodeList[i] = *(new Node(i));
-	}
 }
 
-//Determines the number of Nodes in t
+//Determines the number of Nodes in the graph
 int Graph::findNumOfNodesInFile(string fileName)
 {
 	ifstream graphFile; //File is only to be read, not modified
@@ -115,6 +124,7 @@ bool Graph::parseGraphLine(string line, int lineNum)
 	   "1,2 3,4 5,10" has 3 Node nuggets. They are:
 	   "1,2", "3,4" and "5,10".
 	*/
+	Edge *newEdgeItem;
 	regex nodeAndWeightRegex("^[0-9]+,[0-9]"); /* Regex to find the FIRST connecting
 											   Node and the corresponding Edge weight
 											   */
@@ -163,20 +173,76 @@ bool Graph::parseGraphLine(string line, int lineNum)
 	cout << "nodeAndWeight Nugget: " << nodeAndWeightStr << endl;
 	cout << "node Nugget: " << nodeStr << endl;
 	cout << "weight Nugget: " << weightStr << endl;
+	cout << "lineNum Node address: " << &nodeList[lineNum] << endl;
+	cout << "Node nugget address: " << &nodeList[stoi(nodeStr)] << endl << endl;
+
+	cout << "BEFORE:\n";
+	cout << "nodeList[" << lineNum << "]'s connectingEdge's headCell address is: " << nodeList[lineNum].connectingEdges.headCell << endl;
+	if (nodeList[lineNum].connectingEdges.headCell != NULL)
+	{
+		cout << "\tWith Edge Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge << endl;
+		cout << "\tWith Node A Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge->nodeA << endl;
+		cout << "\tWith Node B Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge->nodeB << endl;
+	}
+	cout << "nodeList[" << stoi(nodeStr) << "]'s connectingEdge's headCell address is: "
+		<< nodeList[stoi(nodeStr)].connectingEdges.headCell << endl;
+	if (nodeList[stoi(nodeStr)].connectingEdges.headCell != NULL)
+	{
+		cout << "\tWith Edge Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge << endl;
+		cout << "\tWith Node A Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge->nodeA << endl;
+		cout << "\tWith Node B Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge->nodeB << endl;
+	}
 
 	//Check if the Edge I'm about to create exists already
-	if (nodeList[stoi(nodeStr)].doNodesConnect(nodeList[lineNum]) != NULL)
+	if (nodeList[lineNum].doNodesConnect(&nodeList[stoi(nodeStr)]) != NULL)
 	{
 		//The connection already exists, use it and add to this Node's connecting Edges
-		cout << "Connection already exists." << endl;
+		cout << "Connection already exists. Adding it" << endl;
 	}
 	else
 	{
 		//The connection does not exist, create it and add to this Node's connecting Edges
-		cout << "Connection does NOT already exist." << endl;
-	}
+		cout << "Connection does NOT already exist. Creating it" << endl;
 
-	cout << endl;
+		//Create the new Edge object
+		newEdgeItem = &(Edge(nodeList[lineNum], nodeList[stoi(nodeStr)], stof(weightStr)));
+
+		//Add the new Edge object to each Node's Edge list
+		if (nodeList[lineNum].addEdge(*newEdgeItem))
+		{
+			cout << "Adding edge to node " << nodeList[lineNum].getNodeNumber() << " SUCCESSFULL\n";
+		}
+		else
+		{
+			cout << "Adding edge to node " << nodeList[lineNum].getNodeNumber() << " UNSUCCESSFULL\n";
+		}
+		if (nodeList[stoi(nodeStr)].addEdge(*newEdgeItem))
+		{
+			cout << "Adding edge to node " << nodeList[stoi(nodeStr)].getNodeNumber() << " SUCCESSFULL\n";
+		}
+		else
+		{
+			cout << "Adding edge to node " << nodeList[stoi(nodeStr)].getNodeNumber() << " UNSUCCESSFULL\n";
+		}
+	}
+	cout << "AFTER:\n";
+	cout << "nodeList[" << lineNum << "]'s connectingEdge's headCell address is: "
+		<< nodeList[lineNum].connectingEdges.headCell << endl;
+	if (nodeList[lineNum].connectingEdges.headCell != NULL)
+	{
+		cout << "\tWith Edge Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge << endl;
+		cout << "\tWith Node A Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge->nodeA << endl;
+		cout << "\tWith Node B Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge->nodeB << endl;
+	}
+	cout << "nodeList[" << stoi(nodeStr) << "]'s connectingEdge's headCell address is: "
+		<< nodeList[stoi(nodeStr)].connectingEdges.headCell << endl;
+	if (nodeList[stoi(nodeStr)].connectingEdges.headCell != NULL)
+	{
+		cout << "\tWith Edge Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge << endl;
+		cout << "\tWith Node A Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge->nodeA << endl;
+		cout << "\tWith Node B Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge->nodeB << endl;
+	}
+	cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
 
 	//Truncate the Node nugget I just used from line
 
