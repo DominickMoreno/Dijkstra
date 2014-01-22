@@ -34,12 +34,10 @@ Graph::Graph(string graphFileName)
 
 	if (!(graphFile.is_open())) //If the given file name couldn't be found
 	{
-		//Throw Error/deal with it
-		//TODO: Figure this out when you write loadMap
+		//Throw Error to be caught by interface
+		throw 19;
 	}
-
 	graphFile.close(); //Close file now that I'm done with it
-
 	//Determine how many Nodes are in the map
 	numOfNodes = findNumOfNodesInFile(graphFileName);
 
@@ -52,14 +50,6 @@ Graph::Graph(string graphFileName)
 	{
 		nodeList[i] = Node(i);
 	}
-
-	cout << "The contents of nodeList are:\n";
-	for (int i = 0; i < numOfNodes; i++)
-	{
-		cout << "nodeList[" << i << "]: " << nodeList[i].getNodeNumber() <<  " at address: " <<
-			&nodeList[i] << endl;
-	}
-	cout << endl;
 
 	//Parse file to instantiate all the Nodes and Paths
 	if (!parseGraphFile(graphFileName)) //If the File is improperly formatted
@@ -159,7 +149,6 @@ bool Graph::parseGraphLine(string line, int lineNum)
 		   any Node nuggets in the first place - ie the Node is not connected
 		   to any other Nodes in the Graph
 		*/
-		cout << "--------------Nugget not found--------------\n";
 		return false;
 	}
 
@@ -170,67 +159,55 @@ bool Graph::parseGraphLine(string line, int lineNum)
 	nodeStr = nodeRegexMatch[0].str();
 	weightStr = weightRegexMatch[0].str();
 
-	cout << "line: " << line << endl;
-	cout << "line number: " << lineNum << endl;
-	cout << "node Nugget: " << nodeStr << endl;
-	cout << "nodeAndWeight Nugget: " << nodeAndWeightStr << endl;
-	cout << "weight Nugget: " << weightStr << endl;
-
 	//Check if the Edge I'm about to create exists already
 	if (nodeList[lineNum].doNodesConnect(&nodeList[stoi(nodeStr)]) != NULL)
 	{
 		//The connection already exists, use it and add to this Node's connecting Edges
-		cout << "Connection already exists. Adding it" << endl;
 	}
 	else
 	{
 		//The connection does not exist, create it and add to this Node's connecting Edges
-		cout << "Connection does NOT already exist. Creating it" << endl;
 
 		//Create the new Edge object
 		newEdgeItem = new Edge(nodeList[lineNum], nodeList[stoi(nodeStr)], stof(weightStr));
 
 		//Add the new Edge object to each Node's Edge list
-		if (nodeList[lineNum].addEdge(*newEdgeItem))
+		if (!nodeList[lineNum].addEdge(*newEdgeItem))
 		{
-			cout << "Adding edge to node " << nodeList[lineNum].getNodeNumber() << " SUCCESSFULL\n";
+			//TODO: throw error, new Edge object not successfully added
+			//Figure this out later
 		}
-		else
+		if (!nodeList[stoi(nodeStr)].addEdge(*newEdgeItem))
 		{
-			cout << "Adding edge to node " << nodeList[lineNum].getNodeNumber() << " UNSUCCESSFULL\n";
-		}
-		if (nodeList[stoi(nodeStr)].addEdge(*newEdgeItem))
-		{
-			cout << "Adding edge to node " << nodeList[stoi(nodeStr)].getNodeNumber() << " SUCCESSFULL\n";
-		}
-		else
-		{
-			cout << "Adding edge to node " << nodeList[stoi(nodeStr)].getNodeNumber() << " UNSUCCESSFULL\n";
+			//TODO: throw error, new Edge object not successfully added
+			//Figure this out later
 		}
 	}
 
-	//Truncate the Node nugget I just used from line
-	line = regex_replace(line, delRegex, "");
-	cout << "line (truncated): \"" << line << "\"" << endl;
-	//call parseGraphLine() recursively
-	cout << "%%%%%%Recursion here%%%%%%\n";
-	if (!parseGraphLine(line, lineNum))
+	/* Call parseGraphLine on itself with the truncated line.
+	   The function won't make it "inside" of the if statement until
+	   one of the recursive calls to parseGraphLine returns false,
+	   which does not happen until the line is depleted
+	*/
+	if (!parseGraphLine(regex_replace(line, delRegex, ""), lineNum))
 	{
 		return true;
 	}
-	//Return true (?)
-	cout << "+++++++++++++++++++	++++++++++++++++++++++++++++++++++++\n";
+
+	//To avoid compile warnings, this is kept "in case" it doesn't enter an if statement 
 	return true;
 	
 }
 
+//Getter for the number of Nodes held in the Graph
 int Graph::getNumOfNodes()
 {
 	//stuff
 	return numOfNodes;
 }
 
-Node Graph::getNodeAtIndex(int index)
+//Returns a pointer to the Node at the given index
+Node *Graph::getNodeAtIndex(int index)
 {
-	return nodeList[index];
+	return &nodeList[index];
 }

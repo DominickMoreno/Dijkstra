@@ -35,8 +35,6 @@ struct EdgeCell
 
 class EdgeLinkedList
 {
-	friend class Node; //temp
-	friend class Graph; // temp
 private:
 	EdgeCell *headCell; //Linked list starting point
 	EdgeCell *tailCell; //Linked list ending point 

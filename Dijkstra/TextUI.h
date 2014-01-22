@@ -17,6 +17,8 @@
 #include <iostream>
 #include <string>
 
+#include "Graph.h"
+
 using namespace std;
 
 class TextInterface

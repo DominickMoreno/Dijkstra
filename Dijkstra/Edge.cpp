@@ -21,7 +21,7 @@ Edge::Edge()
 	//Sets everything to a dummy value
 	nodeA = NULL;
 	nodeB = NULL;
-	weight = -3.14;
+	weight = -3.14F;
 }
 
 //Getter for nodeA

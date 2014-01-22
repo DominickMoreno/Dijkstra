@@ -71,11 +71,9 @@ Edge *Node::doNodesConnect(Node *seekerNode)
 		if (seekerNode->nodeNumber == edgeIter->getA().getNodeNumber()
 			|| seekerNode->nodeNumber == edgeIter->getB().getNodeNumber())
 		{
-			cout << "--Exiting doNodesConnect, Edge FOUND--\n";
 			return edgeIter; //Connection found, return pointer to that Edge
 		}
 	}
 
-	cout << "--Exiting doNodesConnect, Edge NOT found--\n";
 	return NULL; //Connection not found, return NULL
 }

@@ -1,6 +1,26 @@
 /* Graph class header file
    
-   info text here
+   The Graph class holds all of the information for a Graph.
+   It is instantiated by its constructor, which requires a
+   Graph text file to be instantiated. It parses the file
+   line by line, expecting the Graph to be layed out in a
+   specific format (see README.txt).
+
+   This is done when the constructor calls the function
+   parseGraphFile(), which in turn goes line by line, calling
+   parseGraphLine() for each respective line. This method
+   uses regular expressions to extract the information known
+   as a "Node Nugget". Specifically, it grabs the first Node
+   Nugget, removes that nugget from the line, and then makes
+   a recursive call with the newly truncated line. It runs
+   until the line has been "depleted" - ie it encounters
+   an improperly formatted line/nugget or line is an empty
+   string.
+
+   This data is allocated in the array nodeList[]. This array
+   is allocated using pointer tricks. It has getters for the
+   number of Nodes it contains, as well as for each of those
+   individual Nodes. 
 */
 
 #ifndef GRAPH_H
@@ -21,7 +41,7 @@ private:
 public:
 	Graph(std::string); //Constructor to be used with Text interface
 	int getNumOfNodes(); //Getter for number of nodes
-	Node getNodeAtIndex(int); //Returns the Node at the given index
+	Node *getNodeAtIndex(int); //Returns the Node at the given index
 };
 
 #endif GRAPH_H

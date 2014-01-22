@@ -19,7 +19,7 @@ void TextInterface::displayTextMenu()
 
 	   
 	*/
-	string myMap; //Holds the name of the map being worked with
+	string graphName; //Holds the name of the map being worked with
 	short optionSelection = 0; //Holds option selection
 
 	TextInterface::readText("IntroductoryText.txt"); //Display introductory text
@@ -39,7 +39,17 @@ void TextInterface::displayTextMenu()
 		{
 			case 1:
 			{
-				TextInterface::loadMap("Dumb text");
+				cout << "Enter map name: ";
+				cin >> graphName;
+				graphName += ".txt";
+				try
+				{
+					TextInterface::loadMap(graphName);
+				}
+				catch (int e)
+				{
+					cout << graphName << " could not be found.\n";
+				}
 				break;
 			}
 			case 2:
@@ -119,7 +129,7 @@ bool TextInterface::loadMap(string mapName)
 	*/
 
 	//Dummy filler text
-	cout << "Load Map Function called.\n";
+	Graph *loadedGraph = new Graph(mapName);
 	return true;
 }
 

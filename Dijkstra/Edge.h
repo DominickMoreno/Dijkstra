@@ -16,8 +16,6 @@ class Node;
 class Edge
 {
 	friend class EdgeLinkedList;
-	friend class Node; //temp
-	friend class Graph; //temp
 private:
 	Node *nodeA; //First node connected by edge
 	Node *nodeB; //Second node connected by edge
