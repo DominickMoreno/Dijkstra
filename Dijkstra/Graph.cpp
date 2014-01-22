@@ -125,11 +125,12 @@ bool Graph::parseGraphLine(string line, int lineNum)
 	   "1,2", "3,4" and "5,10".
 	*/
 	Edge *newEdgeItem;
-	regex nodeAndWeightRegex("^[0-9]+,[0-9]"); /* Regex to find the FIRST connecting
+	regex nodeAndWeightRegex("^[0-9]+,[0-9]+"); /* Regex to find the FIRST connecting
 											   Node and the corresponding Edge weight
 											   */
 	regex nodeRegex("^[0-9]+"); //Regex to find just the Node number in the Node nugget
-	regex weightRegex("[0-9]+$"); //Regext to find just the Edge weight in the Node nugget
+	regex weightRegex("[0-9]+$"); //Regex to find just the Edge weight in the Node nugget
+	regex delRegex("^[0-9]+,[0-9]+ ?"); //Regex to truncate line when processed
 
 	smatch nodeAndWeightRegexMatch; //Corresponding regex match object to nodeAndWeightRegex
 	smatch nodeRegexMatch; //match object for nodeRegex
@@ -158,6 +159,7 @@ bool Graph::parseGraphLine(string line, int lineNum)
 		   any Node nuggets in the first place - ie the Node is not connected
 		   to any other Nodes in the Graph
 		*/
+		cout << "--------------Nugget not found--------------\n";
 		return false;
 	}
 
@@ -170,11 +172,9 @@ bool Graph::parseGraphLine(string line, int lineNum)
 
 	cout << "line: " << line << endl;
 	cout << "line number: " << lineNum << endl;
-	cout << "nodeAndWeight Nugget: " << nodeAndWeightStr << endl;
 	cout << "node Nugget: " << nodeStr << endl;
+	cout << "nodeAndWeight Nugget: " << nodeAndWeightStr << endl;
 	cout << "weight Nugget: " << weightStr << endl;
-	cout << "lineNum Node address: " << &nodeList[lineNum] << endl;
-	cout << "Node nugget address: " << &nodeList[stoi(nodeStr)] << endl << endl;
 
 	//Check if the Edge I'm about to create exists already
 	if (nodeList[lineNum].doNodesConnect(&nodeList[stoi(nodeStr)]) != NULL)
@@ -209,13 +209,17 @@ bool Graph::parseGraphLine(string line, int lineNum)
 		}
 	}
 
-	cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
-
 	//Truncate the Node nugget I just used from line
-
+	line = regex_replace(line, delRegex, "");
+	cout << "line (truncated): \"" << line << "\"" << endl;
 	//call parseGraphLine() recursively
-
+	cout << "%%%%%%Recursion here%%%%%%\n";
+	if (!parseGraphLine(line, lineNum))
+	{
+		return true;
+	}
 	//Return true (?)
+	cout << "+++++++++++++++++++	++++++++++++++++++++++++++++++++++++\n";
 	return true;
 	
 }
