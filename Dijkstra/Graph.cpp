@@ -50,7 +50,7 @@ Graph::Graph(string graphFileName)
 	//Node that nodeList[n] will contain Node number n
 	for (int i = 0; i < numOfNodes; i++)
 	{
-		nodeList[i] = *(new Node(i));
+		nodeList[i] = Node(i);
 	}
 
 	cout << "The contents of nodeList are:\n";
@@ -176,23 +176,6 @@ bool Graph::parseGraphLine(string line, int lineNum)
 	cout << "lineNum Node address: " << &nodeList[lineNum] << endl;
 	cout << "Node nugget address: " << &nodeList[stoi(nodeStr)] << endl << endl;
 
-	cout << "BEFORE:\n";
-	cout << "nodeList[" << lineNum << "]'s connectingEdge's headCell address is: " << nodeList[lineNum].connectingEdges.headCell << endl;
-	if (nodeList[lineNum].connectingEdges.headCell != NULL)
-	{
-		cout << "\tWith Edge Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge << endl;
-		cout << "\tWith Node A Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge->nodeA << endl;
-		cout << "\tWith Node B Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge->nodeB << endl;
-	}
-	cout << "nodeList[" << stoi(nodeStr) << "]'s connectingEdge's headCell address is: "
-		<< nodeList[stoi(nodeStr)].connectingEdges.headCell << endl;
-	if (nodeList[stoi(nodeStr)].connectingEdges.headCell != NULL)
-	{
-		cout << "\tWith Edge Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge << endl;
-		cout << "\tWith Node A Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge->nodeA << endl;
-		cout << "\tWith Node B Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge->nodeB << endl;
-	}
-
 	//Check if the Edge I'm about to create exists already
 	if (nodeList[lineNum].doNodesConnect(&nodeList[stoi(nodeStr)]) != NULL)
 	{
@@ -205,7 +188,7 @@ bool Graph::parseGraphLine(string line, int lineNum)
 		cout << "Connection does NOT already exist. Creating it" << endl;
 
 		//Create the new Edge object
-		newEdgeItem = &(Edge(nodeList[lineNum], nodeList[stoi(nodeStr)], stof(weightStr)));
+		newEdgeItem = new Edge(nodeList[lineNum], nodeList[stoi(nodeStr)], stof(weightStr));
 
 		//Add the new Edge object to each Node's Edge list
 		if (nodeList[lineNum].addEdge(*newEdgeItem))
@@ -225,23 +208,7 @@ bool Graph::parseGraphLine(string line, int lineNum)
 			cout << "Adding edge to node " << nodeList[stoi(nodeStr)].getNodeNumber() << " UNSUCCESSFULL\n";
 		}
 	}
-	cout << "AFTER:\n";
-	cout << "nodeList[" << lineNum << "]'s connectingEdge's headCell address is: "
-		<< nodeList[lineNum].connectingEdges.headCell << endl;
-	if (nodeList[lineNum].connectingEdges.headCell != NULL)
-	{
-		cout << "\tWith Edge Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge << endl;
-		cout << "\tWith Node A Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge->nodeA << endl;
-		cout << "\tWith Node B Address: " << nodeList[lineNum].connectingEdges.headCell->listEdge->nodeB << endl;
-	}
-	cout << "nodeList[" << stoi(nodeStr) << "]'s connectingEdge's headCell address is: "
-		<< nodeList[stoi(nodeStr)].connectingEdges.headCell << endl;
-	if (nodeList[stoi(nodeStr)].connectingEdges.headCell != NULL)
-	{
-		cout << "\tWith Edge Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge << endl;
-		cout << "\tWith Node A Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge->nodeA << endl;
-		cout << "\tWith Node B Address: " << nodeList[stoi(nodeStr)].connectingEdges.headCell->listEdge->nodeB << endl;
-	}
+
 	cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
 
 	//Truncate the Node nugget I just used from line
