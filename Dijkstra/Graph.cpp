@@ -1,4 +1,4 @@
-/* Graph Linked List class implementation file */
+/* Graph class implementation file */
 
 #include "Graph.h"
 #include <iostream>
@@ -7,6 +7,7 @@
 #include <fstream>
 
 using namespace std;
+
 //function definitions
 
 //(Text UI) constructor for making a Graph

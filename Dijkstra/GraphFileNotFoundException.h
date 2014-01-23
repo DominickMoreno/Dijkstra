@@ -1,6 +1,8 @@
 /* GraphFileNotFoundException class header file
    
-   Info about Exception class
+   Used by the Graph class. Thrown when its constructor
+   is passed a filename it can't find. Inherits from
+   std::exception, overloads the char* what() method
 */
 
 #ifndef GRAPHFILENOTFOUNDEXCEPTION_H
