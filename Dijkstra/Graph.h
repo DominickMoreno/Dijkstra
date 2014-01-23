@@ -29,10 +29,12 @@
 #include <regex>
 #include <string>
 #include "Node.h"
+#include "GraphFileNotFoundException.h"
 
 class Graph
 {
 private:
+	std::string graphName; //Name of the string
 	int numOfNodes; //Holds the number of Nodes in the Graph
 	Node *nodeList; //Holds all of the Nodes in the Graph (array)
 	bool parseGraphFile(std::string); //Parses a Graph file to generate a Graph
@@ -41,6 +43,7 @@ private:
 public:
 	Graph(std::string); //Constructor to be used with Text interface
 	int getNumOfNodes(); //Getter for number of nodes
+	std::string getGraphName(); //Getter for stringname
 	Node *getNodeAtIndex(int); //Returns the Node at the given index
 };
 

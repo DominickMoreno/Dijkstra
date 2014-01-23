@@ -84,6 +84,7 @@
     <ClCompile Include="TextUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GraphFileNotFoundException.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Edge.h" />

@@ -19,6 +19,8 @@ Graph::Graph(string graphFileName)
 	   weight. If it cannot find a file with
 	   the given name, it throws an error.*/
 
+	regex delTxt(".txt$"); //regex to delete the ".txt" part of the graphFileName
+	graphName = regex_replace(graphFileName, delTxt, ""); //Sets the graph name
 
 	/* The following lines from the creation of the ifstream object
 	   until the closing of graphFile object are the only times the
@@ -35,7 +37,9 @@ Graph::Graph(string graphFileName)
 	if (!(graphFile.is_open())) //If the given file name couldn't be found
 	{
 		//Throw Error to be caught by interface
-		throw 19;
+		//GraphFileNotFoundException *myThing = new GraphFileNotFoundException();
+		throw GraphFileNotFoundException();
+		//throw myFoo;
 	}
 	graphFile.close(); //Close file now that I'm done with it
 	//Determine how many Nodes are in the map
@@ -204,6 +208,12 @@ int Graph::getNumOfNodes()
 {
 	//stuff
 	return numOfNodes;
+}
+
+//Getter for graphName
+string Graph::getGraphName()
+{
+	return graphName;
 }
 
 //Returns a pointer to the Node at the given index

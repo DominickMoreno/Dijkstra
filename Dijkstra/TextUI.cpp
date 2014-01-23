@@ -46,9 +46,9 @@ void TextInterface::displayTextMenu()
 				{
 					TextInterface::loadMap(graphName);
 				}
-				catch (int e)
+				catch (exception& e)
 				{
-					cout << graphName << " could not be found.\n";
+					cout << e.what();
 				}
 				break;
 			}
@@ -114,7 +114,7 @@ bool TextInterface::readText(string fileToBeRead)
 	return false;
 }
 
-bool TextInterface::loadMap(string mapName)
+void TextInterface::loadMap(string mapName)
 {
 	/* Uses the name stored in the string mapName
 	   to open a map file with that name. The data
@@ -130,7 +130,6 @@ bool TextInterface::loadMap(string mapName)
 
 	//Dummy filler text
 	Graph *loadedGraph = new Graph(mapName);
-	return true;
 }
 
 bool TextInterface::selectMap(string mapName)

@@ -39,15 +39,14 @@ private:
 	   Returns true if succesful
 	   Returns false if unsuccesful
 	*/
-	bool static loadMap(string);
+	void static loadMap(string);
 
 	/* Asks user to select a (loaded) map. They will then
 	   be brought to a new menu where they can decide
 	   what they will do with the map (eg find shortest
 	   edge, delete, view nodes)
 
-	   Returns true if succesful
-	   Returns false if unsuccesful
+	   Throws an error if file could not be found
 	*/
 	bool static selectMap(string);
 
@@ -60,7 +59,7 @@ private:
 	bool static viewLoadedMaps();
 
 public:
-	void static displayTextMenu(); 
+	void static displayTextMenu(); //Text interface for Graph/Path classes
 };
 
 #endif
