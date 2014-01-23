@@ -17,8 +17,8 @@
 using namespace std;
 
 int main(){
-	//TextInterface::displayTextMenu(); //Call the interface
-	int i,j;
+	TextInterface::displayTextMenu(); //Call the interface
+	/*int i,j;
 	Graph *myGraph0 = new Graph("ExampleGraphFile0.txt");
 	Graph *myGraph1 = new Graph("ExampleGraphFile1.txt");
 	Graph *myGraph2 = new Graph("ExampleGraphFile2.txt");
@@ -45,6 +45,28 @@ int main(){
 		}
 	}
 
-	system("pause");
+	cout << "\nTrying to add a repeat Graph.\n";
+	if (myCollect.addGraph(*myGraph0))
+	{
+		cout << "It was added! Boo :(\n";
+	}
+	else
+	{
+		cout << "It wasn't added! Yay! :)\n";
+	}
+
+	cout << "myCollect now has: " << myCollect.getNumOfGraphs() << " graph(s)\n";
+	cout << "They are named:\n";
+	for (i = 0; i < myCollect.getNumOfGraphs(); i++)
+	{
+		cout << "\t" << myCollect.getGraphAtIndex(i)->getGraphName() << endl;
+		cout << "\tAnd have Nodes:\n";
+		for (j = 0; j < myCollect.getGraphAtIndex(i)->getNumOfNodes(); j++)
+		{
+			cout << "\t\t" << myCollect.getGraphAtIndex(i)->getNodeAtIndex(j)->getNodeNumber() << endl;
+		}
+	}
+
+	system("pause");*/
 	return 0;
 }

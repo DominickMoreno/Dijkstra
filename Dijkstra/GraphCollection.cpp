@@ -22,7 +22,7 @@ int GraphCollection::getNumOfGraphs()
 //Adds the given Graph to the collection
 bool GraphCollection::addGraph(Graph &newGraph)
 {
-	if (&newGraph == NULL)
+	if (&newGraph == NULL || &newGraph == headCell->cell)
 	{
 		//newGraph is NULL, ie it's not a graph. Addition failed
 		return false;
@@ -38,6 +38,12 @@ bool GraphCollection::addGraph(Graph &newGraph)
 	while (cellIter->next != NULL)
 	{
 		cellIter = cellIter->next;
+		if (&newGraph == cellIter->cell)
+		{
+			//If the newGraph is already found in the LL, don't add and return false
+			delete newCell;
+			return false;
+		}
 	}
 
 	/* cellIter is now at the last cell in the LL. Make cellIter

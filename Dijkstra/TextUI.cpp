@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 #include "TextUI.h"
+#include "GraphCollection.h"
 
 using namespace std;
 //Function definitions
@@ -27,6 +28,7 @@ void TextInterface::displayTextMenu()
 
 	while (optionSelection != HIGHOPTION)
 	{
+		GraphCollection allGraphs = *new GraphCollection();
 		TextInterface::readText("MenuInformationText.txt"); //Display menu options
 
 		//Take in user selection
@@ -39,12 +41,20 @@ void TextInterface::displayTextMenu()
 		{
 			case 1:
 			{
-				cout << "Enter map name: ";
-				cin >> graphName;
-				graphName += ".txt";
+				cout << "Enter map name: "; //Prompt for name of GraphFile to be loaded
+				cin >> graphName; //Take in user input
+				graphName += ".txt"; //Add the filetype
 				try
 				{
-					TextInterface::loadMap(graphName);
+					
+					if (TextInterface::loadMap(graphName, &allGraphs))
+					{
+						cout << "Graph Loaded Successfully.\n";
+					}
+					else
+					{
+						cout << "That Graph has already been loaded.\n";
+					}
 				}
 				catch (exception& e)
 				{
@@ -59,7 +69,7 @@ void TextInterface::displayTextMenu()
 			}
 			case 3:
 			{
-				TextInterface::viewLoadedMaps();
+				TextInterface::viewLoadedMaps(&allGraphs);
 				break;
 			}
 			case 4: //do nothing
@@ -114,7 +124,7 @@ bool TextInterface::readText(string fileToBeRead)
 	return false;
 }
 
-void TextInterface::loadMap(string mapName)
+bool TextInterface::loadMap(string mapName, GraphCollection *allGraphs)
 {
 	/* Uses the name stored in the string mapName
 	   to open a map file with that name. The data
@@ -129,7 +139,14 @@ void TextInterface::loadMap(string mapName)
 	*/
 
 	//Dummy filler text
-	Graph *loadedGraph = new Graph(mapName);
+	if (allGraphs->addGraph(*new Graph(mapName)))
+	{
+		//Graph was added correctly
+		return true;
+	}
+
+	//Graph was added incorrectly
+	return false;
 }
 
 bool TextInterface::selectMap(string mapName)
@@ -150,7 +167,7 @@ bool TextInterface::selectMap(string mapName)
 	return true;
 }
 
-bool TextInterface::viewLoadedMaps()
+bool TextInterface::viewLoadedMaps(GraphCollection *allGraphs)
 {
 	/* Display all of the loaded (succesfully
 	   instantiated) maps with their associated map
@@ -159,7 +176,17 @@ bool TextInterface::viewLoadedMaps()
 	   Returns true if there are any maps
 	   Returns false if there are no maps
 	*/
-	//Dummy filler text
-	cout << "View Loaded Maps Function called.\n";
+	if (!(allGraphs->getNumOfGraphs() > 0))
+	{
+		cout << "Number of graphs: " << allGraphs->getNumOfGraphs() << endl;
+		return false;
+	}
+
+	cout << "The following Graphs are loaded:\n";
+	for (int i = 0; i < allGraphs->getNumOfGraphs(); i++)
+	{
+		cout << allGraphs->getGraphAtIndex(i)->getGraphName() << "\t";
+	}
+
 	return true;
 }

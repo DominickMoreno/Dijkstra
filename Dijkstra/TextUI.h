@@ -18,6 +18,7 @@
 #include <string>
 
 #include "Graph.h"
+#include "GraphCollection.h"
 
 using namespace std;
 
@@ -39,7 +40,7 @@ private:
 	   Returns true if succesful
 	   Returns false if unsuccesful
 	*/
-	void static loadMap(string);
+	bool static loadMap(string, GraphCollection*);
 
 	/* Asks user to select a (loaded) map. They will then
 	   be brought to a new menu where they can decide
@@ -56,7 +57,7 @@ private:
 	   Returns true if there is one map or more
 	   Returns false if there are no maps
 	*/
-	bool static viewLoadedMaps();
+	bool static viewLoadedMaps(GraphCollection*);
 
 public:
 	void static displayTextMenu(); //Text interface for Graph/Path classes
