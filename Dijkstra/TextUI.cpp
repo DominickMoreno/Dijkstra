@@ -20,15 +20,15 @@ void TextInterface::displayTextMenu()
 
 	   
 	*/
-	string graphName; //Holds the name of the map being worked with
+	bool graphSelectSuccess; //Used to indicate whether or not graph selection was successful
+	string graphName; //Holds the name of the graph being worked with
 	string optionSelection = ""; //Holds option selection
+	string graphSelection; //Holds the user's choice of graph, could potentially be an int
 	char optionSelectionAsChar = 0; //Holds the first char of the option selection
-	regex firstCharRegex("^.{1}"); //Used to grab ONLY the first char of the user option selection
-	regex repeatCharRegex("^[0-9]{2,}"); //Used to delete repeat digits at the beginning of option selection
-	smatch firstCharRegexMatch; //Used to grab the match of the firstCharRegex
+
+	regex findIsNumberRegex("^[0-9]+$"); //Used to determine if graphSelection is a number or a string
 
 	TextInterface::readText("IntroductoryText.txt"); //Display introductory text
-	TextInterface::readText("New Text Document.txt");
 
 	GraphCollection allGraphs = *new GraphCollection(); //Instantiate the Graph Collection
 	while (optionSelectionAsChar != HIGHOPTION)
@@ -40,31 +40,27 @@ void TextInterface::displayTextMenu()
 		cin >> optionSelection;
 		cout << "\n";
 
-		//optionSelection = regex_replace(optionSelection, repeatCharRegex, "");
-		if (regex_search(optionSelection, repeatCharRegex))
+		//Make sure input is a digit and only 1 character
+		if (!isdigit(optionSelection.c_str()[0]) || optionSelection.length() != 1)
 		{
-			//If the regex has a repeat digit as its first char, eg "11", mark as invalid option
 			optionSelectionAsChar = '5';
 		}
 		else
 		{
-			//Otherwise grab the first char of the string given as input
-			regex_search(optionSelection, firstCharRegexMatch, firstCharRegex);
-			optionSelectionAsChar = firstCharRegexMatch[0].str().c_str()[0];
+			optionSelectionAsChar = optionSelection.c_str()[0];
 		}
 
 		//Process selection
 		switch (optionSelectionAsChar)
 		{
-			case '1': //Load map
-			{
-				cout << "Enter map name: "; //Prompt for name of GraphFile to be loaded
+			case '1': //Load graph
+				cout << "Enter graph name: "; //Prompt for name of GraphFile to be loaded
 				cin >> graphName; //Take in user input
 				graphName += ".txt"; //Add the filetype
 				try
 				{
-					//Call the loadMap method
-					if (TextInterface::loadMap(graphName, &allGraphs))
+					//Call the loadGraph method
+					if (TextInterface::loadGraph(graphName, &allGraphs))
 					{
 						cout << "Graph Loaded Successfully.\n";
 					}
@@ -79,24 +75,34 @@ void TextInterface::displayTextMenu()
 					cout << e.what();
 				}
 				break;
-			}
-			case '2': //Choose a map to interact with
-			{
-				TextInterface::selectMap("Dumb text");
+			case '2': //Choose a graph to interact with
+				cout << "Enter graph name or number: ";
+				cin >> graphSelection;
+				cout << endl;
+
+				if (regex_search(graphSelection, findIsNumberRegex))
+				{
+					//The entered input is a number
+					graphSelectSuccess = TextInterface::selectGraph(allGraphs, stoi(graphSelection));
+				}
+				else
+				{
+					//The entered input is not a number
+					graphSelectSuccess = TextInterface::selectGraph(allGraphs, graphSelection);
+				}
+				if (!graphSelectSuccess)
+				{
+					cout << "Invalid Graph Selection.\n";
+				}
 				break;
-			}
-			case '3': //View all the loaded Maps
-			{
-				TextInterface::viewLoadedMaps(&allGraphs);
+			case '3': //View all the loaded Graphs
+				TextInterface::viewLoadedGraphs(&allGraphs);
 				break;
-			}
 			case '4': //Exit the program
 				break;
 			default: //Invalid Option selected
-			{
-				cout << optionSelection << " Is an invalid choice. Please select a valid option.\n";
+				cout << "\"" << optionSelection << "\" is an invalid selection.\n";
 				break;
-			}
 		}
 
 		cout << "\n";
@@ -142,14 +148,14 @@ bool TextInterface::readText(string fileToBeRead)
 	return false;
 }
 
-bool TextInterface::loadMap(string mapName, GraphCollection *allGraphs)
+bool TextInterface::loadGraph(string graphName, GraphCollection *allGraphs)
 {
-	/* Uses the name stored in the string mapName
-	   to open a map file with that name. The data
-	   in that map file, if it exists and is correctly
+	/* Uses the name stored in the string graphName
+	   to open a graph file with that name. The data
+	   in that graph file, if it exists and is correctly
 	   formatted, will then be parsed and stored into
-	   a Mab object. A correctly instantiated Map
-	   object means the map is loaded.
+	   a Mab object. A correctly instantiated Graph
+	   object means the graph is loaded.
 
 	   Returns true if file is found, correctly parsed,
 			and succesfully instantiated
@@ -157,7 +163,7 @@ bool TextInterface::loadMap(string mapName, GraphCollection *allGraphs)
 	*/
 
 	//Dummy filler text
-	if (allGraphs->addGraph(*new Graph(mapName)))
+	if (allGraphs->addGraph(*new Graph(graphName)))
 	{
 		//Graph was added correctly
 		return true;
@@ -167,32 +173,152 @@ bool TextInterface::loadMap(string mapName, GraphCollection *allGraphs)
 	return false;
 }
 
-bool TextInterface::selectMap(string mapName)
+bool TextInterface::selectGraph(GraphCollection &allGraphs, string graphName)
 {
-	/* User selects a map. They can select it by its
+	/* User selects a graph. They can select it by its
 	   name or number. If an invalid name or number is
 	   entered, a message is displayed saying such, and
 	   main menu is brought up. If a valid name or
 	   number is entered, a new menu is brought up,
-	   the Map Options menu.
+	   the Graph Options menu.
 
-	   Returns true for valid map selection
-	   Returns false for invalid map selection
+	   Returns true for valid graph selection
+	   Returns false for invalid graph selection
 	*/
 
-	//Dummy filler text
-	cout << "Select Map Function called.\n";
+	int i; //iteration counter
+	Graph *currentGraph; /* First iterates through the
+														   collection, then once found
+														   (if it is at all) holds the
+														   selected Graph
+														*/
+	
+	//Iterate through the Graph until the correct Graph is found
+	//If not found, return false
+	for (i = 0; i < allGraphs.getNumOfGraphs(); i++)
+	{
+		//Grab the current iteration's Graph
+		currentGraph = allGraphs.getGraphAtIndex(i);
+		if (currentGraph->getGraphName() == graphName)
+		{
+			//If the graph is found, break the loop
+			break;
+		}
+	}
+
+	if (i == allGraphs.getNumOfGraphs())
+	{
+		/* If i reached the number of Graphs in the collection, the Graph
+		   was not found. Return false.*/
+		return false;
+	}
+	string optionSelection = ""; //Holds option selection
+	char optionSelectionAsChar = 0; //Holds the first char of the option selection
+
+	cout << "Graph Selected: " << currentGraph->getGraphName() << endl;
+	cout << "Graph Options:\n\n";
+
+	while (optionSelectionAsChar != HIGHOPTION)
+	{
+		TextInterface::readText("GraphOptionsText.txt"); //Display options
+
+		//Take in user selection
+		cout << "Select Option: ";
+		cin >> optionSelection;
+		cout << "\n";
+
+		//Make sure input is a digit and only 1 character
+		if (!isdigit(optionSelection.c_str()[0]) || optionSelection.length() != 1)
+		{
+			optionSelectionAsChar = '5';
+		}
+		else
+		{
+			optionSelectionAsChar = optionSelection.c_str()[0];
+		}
+
+		switch (optionSelectionAsChar)
+		{
+		case '1': //Find shortest path
+			cout << "Finding shortest path\n";
+			break;
+		case '2': //Diagnostic Info
+			cout << "Displaying diagnostic info:\n\n";
+
+			cout << "\tGraph Name: " << currentGraph->getGraphName() << endl;
+			cout << "\tNumber of Nodes: " << currentGraph->getNumOfNodes() << endl << endl;
+			cout << "\tNode Connections:\n";
+			for (int j = 0; j < currentGraph->getNumOfNodes(); j++)
+			{
+				cout << "\t\tNode " << j << " connections:\n";
+				for (int k = 0; k < currentGraph->getNodeAtIndex(j)->getConnectingEdges().getNumEdges(); k++)
+				{
+					cout << "\t\t\tNode ";
+					if (currentGraph->getNodeAtIndex(j)->getNodeNumber() ==
+						currentGraph->getNodeAtIndex(j)->getConnectingEdges().getEdge(k)->getA().getNodeNumber())
+					{
+						//Node A is the same as node at this index
+						//cout << "A";
+						cout << currentGraph->getNodeAtIndex(j)->getConnectingEdges().getEdge(k)->getB().getNodeNumber();
+					}
+					else
+					{
+						//Node B is the same as the node at this index
+						//cout << "B";
+						cout << currentGraph->getNodeAtIndex(j)->getConnectingEdges().getEdge(k)->getA().getNodeNumber();
+					}
+
+					cout << " connects with weight: " << currentGraph->getNodeAtIndex(j)->
+						getConnectingEdges().getEdge(k)->getWeight() << endl;
+				}
+				cout << endl;
+			}
+
+
+			break;
+		case '3': //Delete Graph
+			cout << "Deleting Graph\n";
+			break;
+		case '4': //Go back to Program Options
+			cout << "Returning to program options\n";
+			break;
+		default: //Invalid input
+			cout << "\"" << optionSelection << "\" is an invalid selection.\n";
+			break;
+
+		}
+	}
+
+	cout << endl;
+
 	return true;
 }
 
-bool TextInterface::viewLoadedMaps(GraphCollection *allGraphs)
+bool TextInterface::selectGraph(GraphCollection &allGraphs, int index)
+{
+	/* Same as selectGraph(string), but instead
+	   chooses the Graph based on the viewLoadedGraphs
+	   order (so not 0-based). This is done by finding
+	   the correct graph, and then passing it to the
+	   string parameter version
+	*/
+	if (allGraphs.getGraphAtIndex(index-1) != NULL)
+	{
+		//Make sure the index exists
+		return selectGraph(allGraphs, allGraphs.getGraphAtIndex(index-1)->getGraphName());
+	}
+
+	return false;
+}
+
+bool TextInterface::viewLoadedGraphs(GraphCollection *allGraphs)
 {
 	/* Display all of the loaded (succesfully
-	   instantiated) maps with their associated map
+	   instantiated) graphs with their associated graph
 	   numbers
 
-	   Returns true if there are any maps
-	   Returns false if there are no maps
+	   Returns true if there are any graphs
+	   Returns false if there are no graphs
 	*/
 	if (!(allGraphs->getNumOfGraphs() > 0))
 	{
@@ -203,7 +329,7 @@ bool TextInterface::viewLoadedMaps(GraphCollection *allGraphs)
 	cout << "The following Graphs are loaded:\n";
 	for (int i = 0; i < allGraphs->getNumOfGraphs(); i++)
 	{
-		cout << allGraphs->getGraphAtIndex(i)->getGraphName() << "\t";
+		cout << (i+1) << ": " << allGraphs->getGraphAtIndex(i)->getGraphName() << "\t";
 	}
 
 	cout << endl;

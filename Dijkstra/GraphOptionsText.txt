@@ -1,0 +1,4 @@
+1. Find shortest Path
+2. Diagnostic Information
+3. Delete Graph
+4. Go back to Program Options

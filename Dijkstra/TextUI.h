@@ -33,31 +33,37 @@ private:
 	*/
 	bool static readText(string);
 
-	/* Loads a map into the program. It takes a 
+	/* Loads a graph into the program. It takes a 
 	   text file of the input name, parses its
-	   data, and creates a Map object with it.
+	   data, and creates a Graph object with it.
 
 	   Returns true if succesful
 	   Returns false if unsuccesful
 	*/
-	bool static loadMap(string, GraphCollection*);
+	bool static loadGraph(string, GraphCollection*);
 
-	/* Asks user to select a (loaded) map. They will then
+	/* Asks user to select a (loaded) graph. They will then
 	   be brought to a new menu where they can decide
-	   what they will do with the map (eg find shortest
+	   what they will do with the graph (eg find shortest
 	   edge, delete, view nodes)
 
 	   Throws an error if file could not be found
 	*/
-	bool static selectMap(string);
+	bool static selectGraph(GraphCollection&, string);
 
-	/* Lists all maps that have been loaded to the
+	/* Same as selectGraph(string), but lets the user pick
+	   the Graph as an int based on the viewLoadedGraphs
+	   order instead
+	*/
+	bool static selectGraph(GraphCollection&, int);
+
+	/* Lists all graphs that have been loaded to the
 	   program.
 
-	   Returns true if there is one map or more
-	   Returns false if there are no maps
+	   Returns true if there is one graph or more
+	   Returns false if there are no graphs
 	*/
-	bool static viewLoadedMaps(GraphCollection*);
+	bool static viewLoadedGraphs(GraphCollection*);
 
 public:
 	void static displayTextMenu(); //Text interface for Graph/Path classes

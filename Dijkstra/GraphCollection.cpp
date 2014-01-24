@@ -99,7 +99,7 @@ Graph *GraphCollection::getGraphAtIndex(int index)
 			reaching the desired index (ie the index does not
 			exist in the list), return null pointer
 			*/
-			break;
+			return NULL;
 		}
 		cellIter = cellIter->next; //Keep iterating through the list
 	}
