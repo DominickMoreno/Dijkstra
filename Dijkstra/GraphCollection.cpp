@@ -52,7 +52,6 @@ bool GraphCollection::addGraph(Graph &newGraph)
 		{
 			//If the newGraph is already found in the LL, don't add and return false
 			delete newCell;
-			std::cout << "++++I've been added before!++++\n";
 			return false;
 		}
 	}

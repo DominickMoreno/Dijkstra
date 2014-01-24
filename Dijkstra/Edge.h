@@ -27,9 +27,6 @@ public:
 	Node getA(); //Getter for nodeA
 	Node getB(); //Getter for nodeB
 	float getWeight(); //Getter for weight
-	Edge *getLastEdge(); //Getter for lastEdge
-	Edge *getNextEdge(); //Getter for nextEdge
-
 };
 
 #endif EDGE_H

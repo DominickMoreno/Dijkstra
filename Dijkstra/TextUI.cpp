@@ -1,7 +1,7 @@
 /* Implementation file for TextUI.h*/
 
-#define LOWOPTION 1
-#define HIGHOPTION 4
+#define LOWOPTION '1'
+#define HIGHOPTION '4'
 
 #include <iostream>
 #include <string>
@@ -21,13 +21,17 @@ void TextInterface::displayTextMenu()
 	   
 	*/
 	string graphName; //Holds the name of the map being worked with
-	short optionSelection = 0; //Holds option selection
+	string optionSelection = ""; //Holds option selection
+	char optionSelectionAsChar = 0; //Holds the first char of the option selection
+	regex firstCharRegex("^.{1}"); //Used to grab ONLY the first char of the user option selection
+	regex repeatCharRegex("^[0-9]{2,}"); //Used to delete repeat digits at the beginning of option selection
+	smatch firstCharRegexMatch; //Used to grab the match of the firstCharRegex
 
 	TextInterface::readText("IntroductoryText.txt"); //Display introductory text
 	TextInterface::readText("New Text Document.txt");
 
-	GraphCollection allGraphs = *new GraphCollection();
-	while (optionSelection != HIGHOPTION)
+	GraphCollection allGraphs = *new GraphCollection(); //Instantiate the Graph Collection
+	while (optionSelectionAsChar != HIGHOPTION)
 	{
 		TextInterface::readText("MenuInformationText.txt"); //Display menu options
 
@@ -36,17 +40,30 @@ void TextInterface::displayTextMenu()
 		cin >> optionSelection;
 		cout << "\n";
 
-		//Process selection
-		switch (optionSelection)
+		//optionSelection = regex_replace(optionSelection, repeatCharRegex, "");
+		if (regex_search(optionSelection, repeatCharRegex))
 		{
-			case 1:
+			//If the regex has a repeat digit as its first char, eg "11", mark as invalid option
+			optionSelectionAsChar = '5';
+		}
+		else
+		{
+			//Otherwise grab the first char of the string given as input
+			regex_search(optionSelection, firstCharRegexMatch, firstCharRegex);
+			optionSelectionAsChar = firstCharRegexMatch[0].str().c_str()[0];
+		}
+
+		//Process selection
+		switch (optionSelectionAsChar)
+		{
+			case '1': //Load map
 			{
 				cout << "Enter map name: "; //Prompt for name of GraphFile to be loaded
 				cin >> graphName; //Take in user input
 				graphName += ".txt"; //Add the filetype
 				try
 				{
-					
+					//Call the loadMap method
 					if (TextInterface::loadMap(graphName, &allGraphs))
 					{
 						cout << "Graph Loaded Successfully.\n";
@@ -58,23 +75,24 @@ void TextInterface::displayTextMenu()
 				}
 				catch (exception& e)
 				{
+					//Display the exception
 					cout << e.what();
 				}
 				break;
 			}
-			case 2:
+			case '2': //Choose a map to interact with
 			{
 				TextInterface::selectMap("Dumb text");
 				break;
 			}
-			case 3:
+			case '3': //View all the loaded Maps
 			{
 				TextInterface::viewLoadedMaps(&allGraphs);
 				break;
 			}
-			case 4: //do nothing
+			case '4': //Exit the program
 				break;
-			case 5:
+			default: //Invalid Option selected
 			{
 				cout << optionSelection << " Is an invalid choice. Please select a valid option.\n";
 				break;
@@ -187,6 +205,8 @@ bool TextInterface::viewLoadedMaps(GraphCollection *allGraphs)
 	{
 		cout << allGraphs->getGraphAtIndex(i)->getGraphName() << "\t";
 	}
+
+	cout << endl;
 
 	return true;
 }
