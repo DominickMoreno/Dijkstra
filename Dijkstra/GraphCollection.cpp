@@ -22,10 +22,20 @@ int GraphCollection::getNumOfGraphs()
 //Adds the given Graph to the collection
 bool GraphCollection::addGraph(Graph &newGraph)
 {
-	if (&newGraph == NULL || &newGraph == headCell->cell)
+	if (&newGraph == NULL)
 	{
 		//newGraph is NULL, ie it's not a graph. Addition failed
 		return false;
+	}
+	if (!headCell->cell == NULL)
+	{
+		if (newGraph.getGraphName() == headCell->cell->getGraphName())
+		{
+			/* If the headCell is not NULL, but the newGraph has the same
+			   name as the headCell graph, then it's a copy. Addition failed
+			*/
+			return false;
+		}
 	}
 
 	GraphCell *newCell = new GraphCell; //Set the newGraph into a GraphCell
@@ -38,10 +48,11 @@ bool GraphCollection::addGraph(Graph &newGraph)
 	while (cellIter->next != NULL)
 	{
 		cellIter = cellIter->next;
-		if (&newGraph == cellIter->cell)
+		if (newGraph.getGraphName() == cellIter->cell->getGraphName())
 		{
 			//If the newGraph is already found in the LL, don't add and return false
 			delete newCell;
+			std::cout << "++++I've been added before!++++\n";
 			return false;
 		}
 	}

@@ -26,9 +26,9 @@ void TextInterface::displayTextMenu()
 	TextInterface::readText("IntroductoryText.txt"); //Display introductory text
 	TextInterface::readText("New Text Document.txt");
 
+	GraphCollection allGraphs = *new GraphCollection();
 	while (optionSelection != HIGHOPTION)
 	{
-		GraphCollection allGraphs = *new GraphCollection();
 		TextInterface::readText("MenuInformationText.txt"); //Display menu options
 
 		//Take in user selection
