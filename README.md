@@ -5,6 +5,7 @@ Personal Information:
 	linkedin: www.linkedin.com/pub/dominick-moreno/65/2a6/841/
 
 Special Notes:
+		This project was worked on during Winter 2013-2014
 		A "*" indicates a design constraint that may be altered or removed at a later point.
 
 Goal:
