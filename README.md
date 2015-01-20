@@ -1,7 +1,11 @@
 Personal Information:
+
 	Author: Dominick Moreno
+	
 	Project: Dijkstra
+	
 	E-mail: Dominickmoreno92@gmail.com
+	
 	linkedin: www.linkedin.com/pub/dominick-moreno/65/2a6/841/
 
 Special Notes: this project was worked on during Winter 2013-2014. A "*" indicates a design constraint that may be altered or removed at a later point.
@@ -10,26 +14,26 @@ Special Notes: this project was worked on during Winter 2013-2014. A "*" indicat
 The goal of this project is to find the shortest path between two points on a generic, discrete map. Maps will be defined as text files in a subfolder named "maps". There can be multiple maps in this folder.The program will not require the name of the maps to be entered, but will instead look through all files in this folder, and determine whether or not a given file in /maps/ is actually a graph*. A file of type ".gph" will be considered a graph, and will contain text that defines a graph. Also in this folder will be the two points between which a path is to be found.
 	
 	
-Consider the graph "ExampleGraph.jpg" in the root folder of the Dijkstra project. Its .gph file
-	would be defined as so, assuming the program calls for the shortest path between points A and E:
+Consider the graph "ExampleGraph.jpg" in the root folder of the Dijkstra project. Its .gph file would be defined as so, assuming the program calls for the shortest path between points A and E:
 
-			1,1 3,1
-			0,1 2,5
-			1,5 4,7
-			0,1 4,1
-			2,7 3,1
-			1-4
+	1,1 3,1
+	
+	0,1 2,5
+	
+	1,5 4,7
+	
+	0,1 4,1
+	
+	2,7 3,1
+	
+	1-4
 
-		This file is 6 lines long - the first 5 lines for the 5 nodes in the graph, the last to determine
-	the point between which the path is to be found. This will always be the case. For a graph with n nodes,
-	the corresponding .gph file will have n+1 lines.\
-		On each line is a pair of numbers, seperated by a coma. Each number pair represents a connection
-	to a node and that connection's path weight. In the example .gph file, the 0th line represents connections
-	to node 0 (node A in the graph). Because it has two number pairs, this means node 0 has connects to 2 other
-	nodes, nodes 1 and 3 (B and D). The order does not matter, so long as it's consistent. From the first number
-	pair we see that node 0 connects to node 1 with a path weight of 1, and also with node 3 with weight 1 as well.
-	We then move on to line 1. It tells us that node 1 (from the line number) connects to node 0 with a path
-	weight of 1, as well as to node 2 with weight 5. 
+This file is 6 lines long - the first 5 lines for the 5 nodes in the graph, the last to determine the point between which the path is to be found. This will always be the case. For a graph with n nodes, the corresponding .gph file will have n+1 lines.
+
+
+On each line is a pair of numbers, seperated by a coma. Each number pair represents a connection to a node and that connection's path weight. In the example .gph file, the 0th line represents connections to node 0 (node A in the graph). Because it has two number pairs, this means node 0 has connects to 2 other nodes, nodes 1 and 3 (B and D). The order does not matter, so long as it's consistent. From the first number pair we see that node 0 connects to node 1 with a path weight of 1, and also with node 3 with weight 1 as well. We then move on to line 1. It tells us that node 1 (from the line number) connects to node 0 with a path weight of 1, as well as to node 2 with weight 5. 
+
+
 		Number pair order does not matter, nor does node order. If I wanted to use node D as node 0 and write
 	it first, I could do that - as long as I was consistent. Also note that there is redundancy. Line 0 indicates
 	that node 0 connects to node 1; likewise line 1 indicates that node 1 connects to node 0. This is acceptable
