@@ -4,18 +4,13 @@ Personal Information:
 	E-mail: Dominickmoreno92@gmail.com
 	linkedin: www.linkedin.com/pub/dominick-moreno/65/2a6/841/
 
-Special Notes:
-		This project was worked on during Winter 2013-2014
-		A "*" indicates a design constraint that may be altered or removed at a later point.
+Special Notes: this project was worked on during Winter 2013-2014. A "*" indicates a design constraint that may be altered or removed at a later point.
 
-Goal:
-		The goal of this project is to find the shortest path between two points on a generic, discrete map.
-	Maps will be defined as text files in a subfolder named "maps". There can be multiple maps in this folder.
-	The program will not require the name of the maps to be entered, but will instead look through all files in
-	this folder, and determine whether or not a given file in /maps/ is actually a graph*. A file of type
-	".gph" will be considered a graph, and will contain text that defines a graph. Also in this folder will be
-	the two points between which a path is to be found.
-		Consider the graph "ExampleGraph.jpg" in the root folder of the Dijkstra project. Its .gph file
+
+The goal of this project is to find the shortest path between two points on a generic, discrete map. Maps will be defined as text files in a subfolder named "maps". There can be multiple maps in this folder.The program will not require the name of the maps to be entered, but will instead look through all files in this folder, and determine whether or not a given file in /maps/ is actually a graph*. A file of type ".gph" will be considered a graph, and will contain text that defines a graph. Also in this folder will be the two points between which a path is to be found.
+	
+	
+Consider the graph "ExampleGraph.jpg" in the root folder of the Dijkstra project. Its .gph file
 	would be defined as so, assuming the program calls for the shortest path between points A and E:
 
 			1,1 3,1
